@@ -1,0 +1,15 @@
+{
+  "name": "@hexlet/code",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/Ekaterina31415/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Ekaterina31415/frontend-project-46/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^11.0.0"
+  }
+}

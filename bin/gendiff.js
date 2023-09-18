@@ -3,19 +3,11 @@
 import { program } from 'commander';
 import fs from 'fs';
 import path from 'path';
+import _ from 'lodash';
 
-function processJson(filepath1, filepath2) {
-  const data1 = JSON.parse(fs.readFileSync(path.resolve(filepath1), 'utf-8'));
-  const data2 = JSON.parse(fs.readFileSync(path.resolve(filepath2), 'utf-8'));
-
-  if (typeof data1 !== 'object' || data1 === null || Array.isArray(data1) ||
-      typeof data2 !== 'object' || data2 === null || Array.isArray(data2)) {
-        console.error('One or both files do not includes odject type');
-        return;
-      }
-
-  const keys1 = Object.keys(data1).sort();
-  const keys2 = Object.keys(data2).sort();
+function processJson(data1, data2) {
+  const keys1 = _.sortBy(Object.keys(data1));
+  const keys2 = _.sortBy(Object.keys(data2));
 
   let output = '';
 
@@ -26,7 +18,7 @@ function processJson(filepath1, filepath2) {
       output += `- ${key}: ${data1[key]}\n`;
       output += `+ ${key}: ${data2[key]}\n`;
     } else {
-      output += `  ${key}: ${data1[key]}\n`;
+      output += `  ${key}: ${data1[key]}\n`
     }
   }
 
@@ -36,7 +28,7 @@ function processJson(filepath1, filepath2) {
     }
   }
 
-  console.log(output);
+  return output;
 }
 
 program
@@ -44,8 +36,19 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format <type>', 'output format')
   .arguments('<filepath1> <filepath2>')
-  .action((filepath1, filepath2) => {
-    processJson(filepath1, filepath2);
+  .action((file1, file2) => {
+    const file1Ext = path.extname(file1);
+    const file2Ext = path.extname(file2);
+
+    if (file1Ext !== '.json' || file2Ext !== '.json') {
+        console.error("Поддерживаются только файлы формата .json");
+        return;
+    }
+
+    const data1 = JSON.parse(fs.readFileSync(path.resolve(file1), 'utf-8'));
+    const data2 = JSON.parse(fs.readFileSync(path.resolve(file2), 'utf-8'));
+
+    console.log(processJson(data1, data2));
   });
 
 program.parse(process.argv);

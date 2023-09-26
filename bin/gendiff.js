@@ -19,8 +19,15 @@ program
       return;
     }
 
-    const data1 = JSON.parse(fs.readFileSync(path.resolve(file1), 'utf-8'));
-    const data2 = JSON.parse(fs.readFileSync(path.resolve(file2), 'utf-8'));
+    const resolveFilePath = (filePath) => (path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath));
+    const readJsonFileSync = (filePath) => {
+      const resolvedPath = resolveFilePath(filePath);
+      const fileContent = fs.readFileSync(resolvedPath, 'utf8');
+      return JSON.parse(fileContent);
+    };
+
+    const data1 = readJsonFileSync(file1);
+    const data2 = readJsonFileSync(file2);
 
     console.log(processJson(data1, data2));
   });

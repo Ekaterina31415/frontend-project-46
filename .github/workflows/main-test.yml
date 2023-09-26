@@ -1,4 +1,4 @@
-name: Tests
+name: Build and testd
 on: [push]
 jobs:
   build:
@@ -8,5 +8,15 @@ jobs:
       - uses: actions/setup-node@v3
       - run: make install
       - run: make lint
+      - name: Before script
+        run: |
+        curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        chmod +x ./cc-test-reporter
+        ./cc-test-reporter before-build
       - name: run tests
         run: make test
+      - name: After script
+        run: |
+          ./cc-test-reporter after-build --exit-code $?
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}

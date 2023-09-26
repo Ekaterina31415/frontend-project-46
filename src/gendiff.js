@@ -6,20 +6,20 @@ function processJson(data1, data2) {
 
   let output = '';
 
-  for (let key of keys1) {
-    if (!keys2.includes(key)) {
-      output += `- ${key}: ${data1[key]}\n`;
-    } else if (data1[key] !== data2[key]) {
-      output += `- ${key}: ${data1[key]}\n`;
-      output += `+ ${key}: ${data2[key]}\n`;
+  for (let i = 0; i < keys1.length; i += 1) {
+    if (!keys2.includes(keys1[i])) {
+      output += `- ${keys1[i]}: ${data1[keys1[i]]}\n`;
+    } else if (data1[keys1[i]] !== data2[keys1[i]]) {
+      output += `- ${keys1[i]}: ${data1[keys1[i]]}\n`;
+      output += `+ ${keys1[i]}: ${data2[keys1[i]]}\n`;
     } else {
-      output += `  ${key}: ${data1[key]}\n`
+      output += `  ${keys1[i]}: ${data1[keys1[i]]}\n`;
     }
   }
 
-  for (let key of keys2) {
-    if (!keys1.includes(key)) {
-      output += `+ ${key}: ${data2[key]}\n`;
+  for (let i = 0; i < keys2.length; i += 1) {
+    if (!keys1.includes(keys2[i])) {
+      output += `+ ${keys2[i]}: ${data2[keys2[i]]}\n`;
     }
   }
 

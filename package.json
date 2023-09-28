@@ -9,13 +9,17 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["lcov", "text"]
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
   },
   "author": "Ekaterina Kilina",
   "license": "ISC",
   "dependencies": {
     "@jest/globals": "^29.7.0",
     "commander": "^11.0.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "readline-sync": "^1.4.10"
   },

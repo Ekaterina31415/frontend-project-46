@@ -6,4 +6,8 @@
 
 <a href="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3" target="_blank"><img src="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3.svg" /></a>
 
-3rd step of the project
+Compare two .json files.
+
+<a href="https://asciinema.org/a/Y0ejnGARLVkCMpvifW6qhgXMd" target="_blank"><img src="https://asciinema.org/a/Y0ejnGARLVkCMpvifW6qhgXMd.svg" /></a>
+
+Compare .yaml and .yml files.

@@ -1,29 +1,34 @@
 import _ from 'lodash';
 
-function processJson(data1, data2) {
-  const keys1 = _.sortBy(Object.keys(data1));
-  const keys2 = _.sortBy(Object.keys(data2));
+const compareObjects = (obj1, obj2) => {
+  const result = {};
 
-  let output = '';
+  const obj1Keys = Object.keys(obj1);
+  const obj2Keys = Object.keys(obj2);
 
-  for (let i = 0; i < keys1.length; i += 1) {
-    if (!keys2.includes(keys1[i])) {
-      output += `- ${keys1[i]}: ${data1[keys1[i]]}\n`;
-    } else if (data1[keys1[i]] !== data2[keys1[i]]) {
-      output += `- ${keys1[i]}: ${data1[keys1[i]]}\n`;
-      output += `+ ${keys1[i]}: ${data2[keys1[i]]}\n`;
+  for (const key of obj1Keys) {
+    if (!obj2Keys.includes(key)) {
+      result[`- ${key}`] = obj1[key];
+    } else if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
+      const diff = compareObjects(obj1[key], obj2[key]);
+      if (!_.isEmpty(diff)) {
+        result[`  ${key}`] = diff;
+      }
+    } else if (!_.isEqual(obj1[key], obj2[key])) {
+      result[`- ${key}`] = obj1[key];
+      result[`+ ${key}`] = obj2[key];
     } else {
-      output += `  ${keys1[i]}: ${data1[keys1[i]]}\n`;
+      result[`  ${key}`] = obj1[key];
     }
   }
 
-  for (let i = 0; i < keys2.length; i += 1) {
-    if (!keys1.includes(keys2[i])) {
-      output += `+ ${keys2[i]}: ${data2[keys2[i]]}\n`;
+  for (const key of obj2Keys) {
+    if (!obj1Keys.includes(key)) {
+      result[`+ ${key}`] = obj2[key];
     }
   }
 
-  return output;
-}
+  return result;
+};
 
-export default processJson;
+export default compareObjects;

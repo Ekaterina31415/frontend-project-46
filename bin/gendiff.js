@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import processJson from '../src/gendiff.js';
+import compareObjects from '../src/gendiff.js';
 import parse from '../parsers/parser.js';
+import stylishOutput from '../src/stylish.js';
 
 program
   .version('1.0.0', '-V, --version', 'output the version number')
@@ -13,7 +14,7 @@ program
     const data1 = parse(file1);
     const data2 = parse(file2);
 
-    console.log(processJson(data1, data2));
+    console.log(stylishOutput(compareObjects(data1, data2)));
   });
 
 program.parse(process.argv);

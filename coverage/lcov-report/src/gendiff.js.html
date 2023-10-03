@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>11/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -92,64 +92,79 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">26x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
 &nbsp;
-function processJson(data1, data2) {
-  const keys1 = _.sortBy(Object.keys(data1));
-  const keys2 = _.sortBy(Object.keys(data2));
+const compareObjects = (obj1, obj2) =&gt; {
+  const result = {};
 &nbsp;
-  let output = '';
+  const obj1Keys = Object.keys(obj1);
+  const obj2Keys = Object.keys(obj2);
 &nbsp;
-  for (let i = 0; i &lt; keys1.length; i += 1) {
-    if (!keys2.includes(keys1[i])) {
-      output += `- ${keys1[i]}: ${data1[keys1[i]]}\n`;
-    } else if (data1[keys1[i]] !== data2[keys1[i]]) {
-      output += `- ${keys1[i]}: ${data1[keys1[i]]}\n`;
-      output += `+ ${keys1[i]}: ${data2[keys1[i]]}\n`;
+  for (const key of obj1Keys) {
+    if (!obj2Keys.includes(key)) {
+      result[`- ${key}`] = obj1[key];
+    } else if (_.isPlainObject(obj1[key]) &amp;&amp; _.isPlainObject(obj2[key])) {
+      const diff = compareObjects(obj1[key], obj2[key]);
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!_.isEmpty(diff)) {
+        result[`  ${key}`] = diff;
+      }
+    } else if (!_.isEqual(obj1[key], obj2[key])) {
+      result[`- ${key}`] = obj1[key];
+      result[`+ ${key}`] = obj2[key];
     } else {
-      output += `  ${keys1[i]}: ${data1[keys1[i]]}\n`;
+      result[`  ${key}`] = obj1[key];
     }
   }
 &nbsp;
-  for (let i = 0; i &lt; keys2.length; i += 1) {
-    if (!keys1.includes(keys2[i])) {
-      output += `+ ${keys2[i]}: ${data2[keys2[i]]}\n`;
+  for (const key of obj2Keys) {
+    if (!obj1Keys.includes(key)) {
+      result[`+ ${key}`] = obj2[key];
     }
   }
 &nbsp;
-  return output;
-}
+  return result;
+};
 &nbsp;
-export default processJson;
+export default compareObjects;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -157,7 +172,7 @@ export default processJson;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-09-28T07:54:19.596Z
+                at 2023-10-03T06:43:49.030Z
             </div>
         <script src="../prettify.js"></script>
         <script>

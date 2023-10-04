@@ -6,8 +6,11 @@
 
 <a href="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3" target="_blank"><img src="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3.svg" /></a>
 
-Compare two .json files.
+Compare two plain .json files.
 
 <a href="https://asciinema.org/a/Y0ejnGARLVkCMpvifW6qhgXMd" target="_blank"><img src="https://asciinema.org/a/Y0ejnGARLVkCMpvifW6qhgXMd.svg" /></a>
 
-Compare .yaml and .yml files.
+Compare two plain .yaml and .yml files.
+
+<a href="https://asciinema.org/a/6oa1lL7XeiUjXjbO8hcfnonDW" target="_blank"><img src="https://asciinema.org/a/6oa1lL7XeiUjXjbO8hcfnonDW.svg" /></a>
+Compare two nested .json files.

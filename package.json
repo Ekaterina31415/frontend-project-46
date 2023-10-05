@@ -6,7 +6,7 @@
   "main": "bin/gendiff.js",
   "scripts": {
     "test": "jest",
-    "format": "node ./src/stylish.js"
+    "format": "node ./formatters/stylish.js"
   },
   "jest": {
     "collectCoverage": true,

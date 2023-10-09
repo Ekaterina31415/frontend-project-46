@@ -16,7 +16,7 @@ program
 
     const outputStyle = formatSelection(format);
 
-    console.log(outputStyle(compareObjects(data1, data2)));
+    console.log(compareObjects(data1, data2));
   });
 
 program.parse(process.argv);

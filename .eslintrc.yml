@@ -12,6 +12,7 @@ rules:
   max-len: 0
   no-restricted-syntax: 0
   quote-props: 0
+  no-else-return: 0
   import/extensions:
     - error
     - ignorePackages

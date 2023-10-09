@@ -1,34 +1,49 @@
 import _ from 'lodash';
 
-const compareObjects = (obj1, obj2) => {
-  const result = {};
+const buildDiff = (obj1, obj2) => {
+  const build = (key, obj1, obj2) => {
+    const val1 = obj1[key];
+    const val2 = obj2[key];
 
-  const obj1Keys = Object.keys(obj1);
-  const obj2Keys = Object.keys(obj2);
-
-  for (const key of obj1Keys) {
-    if (!obj2Keys.includes(key)) {
-      result[`- ${key}`] = obj1[key];
-    } else if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
-      const diff = compareObjects(obj1[key], obj2[key]);
-      if (!_.isEmpty(diff)) {
-        result[`  ${key}`] = diff;
+    if (val1 && val2) {
+      if (val1 === val2 || (_.isObject(val1) && _.isObject(val2))) {
+        const children = _.isObject(val2) ? buildDiff(val1, val2) : [];
+        return {
+          key,
+          children,
+          type: 'unchanged',
+          value: _.isObject(val1) ? null : val1,
+        };
+      } else if (val1 !== val2) {
+        const children = _.isObject(val2) ? buildDiff(val1, val2) : [];
+        return {
+          key,
+          children,
+          type: 'changed',
+          val1: _.isObject(val1) ? null : val1,
+          val2: _.isObject(val2) ? null : val2,
+        };
       }
-    } else if (!_.isEqual(obj1[key], obj2[key])) {
-      result[`- ${key}`] = obj1[key];
-      result[`+ ${key}`] = obj2[key];
-    } else {
-      result[`  ${key}`] = obj1[key];
+    } else if (val1) {
+      return {
+        key,
+        type: 'deleted',
+      };
+    } else if (val2) {
+      return {
+        key,
+        type: 'added',
+        value: _.isObject(val2) ? null : val2,
+      };
     }
-  }
+  };
 
-  for (const key of obj2Keys) {
-    if (!obj1Keys.includes(key)) {
-      result[`+ ${key}`] = obj2[key];
-    }
+  const keys = _.union(_.keys(obj1), _.keys(obj2));
+  const result = {};
+  for (const key of keys) {
+    result[key] = build(key, obj1, obj2);
   }
 
   return result;
 };
-
-export default compareObjects;
+export default buildDiff;

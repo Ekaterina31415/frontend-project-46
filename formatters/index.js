@@ -1,10 +1,10 @@
 import plain from './plain.js';
-import nested from './stylish.js';
+import stylish from './stylish.js';
 
 const formatSelection = (format) => {
   if (format === 'plain' || format === 'p') {
     return plain;
   }
-  return nested;
+  return stylish;
 };
 export default formatSelection;

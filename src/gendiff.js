@@ -1,49 +1,21 @@
 import _ from 'lodash';
 
 const buildDiff = (obj1, obj2) => {
-  const build = (key, obj1, obj2) => {
-    const val1 = obj1[key];
-    const val2 = obj2[key];
-
-    if (val1 && val2) {
-      if (val1 === val2 || (_.isObject(val1) && _.isObject(val2))) {
-        const children = _.isObject(val2) ? buildDiff(val1, val2) : [];
-        return {
-          key,
-          children,
-          type: 'unchanged',
-          value: _.isObject(val1) ? null : val1,
-        };
-      } else if (val1 !== val2) {
-        const children = _.isObject(val2) ? buildDiff(val1, val2) : [];
-        return {
-          key,
-          children,
-          type: 'changed',
-          val1: _.isObject(val1) ? null : val1,
-          val2: _.isObject(val2) ? null : val2,
-        };
-      }
-    } else if (val1) {
+  const keys = _.union(_.keys(obj1), _.keys(obj2));
+  const threePart = (key) => {
+    if (!_.has(obj1, key)) {
+      return { key, value: obj2[key], status: 'added' };
+    } else if (!_.has(obj2, key)) {
+      return { key, value: obj1[key], status: 'removed' };
+    } else if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
+      return { key, children: buildDiff(obj1[key], obj2[key]), status: 'nested' };
+    } else if (obj1[key] !== obj2[key]) {
       return {
-        key,
-        type: 'deleted',
-      };
-    } else if (val2) {
-      return {
-        key,
-        type: 'added',
-        value: _.isObject(val2) ? null : val2,
+        key, oldValue: obj1[key], newValue: obj2[key], status: 'updated',
       };
     }
+    return { key, value: obj1[key], status: 'unchanged' };
   };
-
-  const keys = _.union(_.keys(obj1), _.keys(obj2));
-  const result = {};
-  for (const key of keys) {
-    result[key] = build(key, obj1, obj2);
-  }
-
-  return result;
+  return keys.flatMap((key) => threePart(key));
 };
 export default buildDiff;

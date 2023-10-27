@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import formatSelection from '../formatters/index.js';
 
-const buildDiff = (obj1, obj2) => {
+const buildDiff = (obj1, obj2, format = 'stylish') => {
   const keys = _.union(_.keys(obj1), _.keys(obj2));
   const threePart = (key) => {
     if (!_.has(obj1, key)) {
@@ -16,6 +17,8 @@ const buildDiff = (obj1, obj2) => {
     }
     return { key, value: obj1[key], status: 'unchanged' };
   };
-  return keys.flatMap((key) => threePart(key));
+  const diff = keys.flatMap((key) => threePart(key));
+  const outputFormat = formatSelection(format);
+  return outputFormat(diff);
 };
 export default buildDiff;

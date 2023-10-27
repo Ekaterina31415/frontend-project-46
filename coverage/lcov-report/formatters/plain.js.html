@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/gendiff.js</title>
+    <title>Code coverage report for formatters/plain.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">src</a> gendiff.js</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">formatters</a> plain.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">6.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>1/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">6.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>1/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -89,52 +89,52 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">24x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import _ from 'lodash';
-import formatSelection from '../formatters/index.js';
 &nbsp;
-const buildDiff = (obj1, obj2, format = 'stylish') =&gt; {
-  const keys = _.union(_.keys(obj1), _.keys(obj2));
-  const threePart = (key) =&gt; {
-    if (!_.has(obj1, key)) {
-      return { key, value: obj2[key], status: 'added' };
-    } else if (!_.has(obj2, key)) {
-      return { key, value: obj1[key], status: 'removed' };
-    } else if (_.isObject(obj1[key]) &amp;&amp; _.isObject(obj2[key])) {
-      return { key, children: buildDiff(obj1[key], obj2[key]), status: 'nested' };
-    } else if (obj1[key] !== obj2[key]) {
-      return {
-        key, oldValue: obj1[key], newValue: obj2[key], status: 'updated',
-      };
+const plainOutput = <span class="fstat-no" title="function not covered" >(a</span>rray, keyPath = <span class="branch-0 cbranch-no" title="branch not covered" >'')</span> =&gt; {
+  const result = <span class="cstat-no" title="statement not covered" >array.map(<span class="fstat-no" title="function not covered" >(o</span>bj) =&gt; {</span>
+    const newKeyPath = <span class="cstat-no" title="statement not covered" >keyPath === '' ? `${obj.key}` : `${keyPath}.${obj.key}`;</span>
+<span class="cstat-no" title="statement not covered" >    if (obj.status === 'nested') {</span>
+<span class="cstat-no" title="statement not covered" >      return plainOutput(obj.children, newKeyPath);</span>
+    } else <span class="cstat-no" title="statement not covered" >if (obj.status === 'added') {</span>
+      const value = <span class="cstat-no" title="statement not covered" >_.isObject(obj.value) ? '[complex value]' : obj.value;</span>
+<span class="cstat-no" title="statement not covered" >      return `Property '${newKeyPath}' was added with value: ${value}"`;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (obj.status === 'removed') {</span>
+<span class="cstat-no" title="statement not covered" >      return `Property '${newKeyPath}' was removed`;</span>
+    } else <span class="cstat-no" title="statement not covered" >if (obj.status === 'updated') {</span>
+      const val1 = <span class="cstat-no" title="statement not covered" >_.isObject(obj.oldValue) ? '[complex value]' : obj.oldValue;</span>
+      const val2 = <span class="cstat-no" title="statement not covered" >_.isObject(obj.newValue) ? '[complex value]' : obj.newValue;</span>
+<span class="cstat-no" title="statement not covered" >      return `Property '${newKeyPath}' was updated. From '${val1}' to '${val2}'`;</span>
     }
-    return { key, value: obj1[key], status: 'unchanged' };
-  };
-  const diff = keys.flatMap((key) =&gt; threePart(key));
-  const outputFormat = formatSelection(format);
-  return outputFormat(diff);
+<span class="cstat-no" title="statement not covered" >    return '';</span>
+  });
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return result.join('\n');</span>
 };
-export default buildDiff;
+&nbsp;
+export default plainOutput;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

@@ -28,7 +28,7 @@ test('compare 2 .json files with plain formatter', () => {
   const data1 = yaml.load(fs.readFileSync(path.resolve('__fixtures__/file1.yaml'), 'utf-8'));
   const data2 = yaml.load(fs.readFileSync(path.resolve('__fixtures__/file2.yml'), 'utf-8'));
 
-  const current = compareObjects(data1, data2);
+  const current = compareObjects(data1, data2).split('\n');
 
   expect(current).toEqual(expectedResultPlain);
 });

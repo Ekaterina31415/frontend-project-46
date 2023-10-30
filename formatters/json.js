@@ -1,6 +1,2 @@
-const jsonOutputStyle = (value) => {
-  const result = {};
-
-  
-};
+const jsonOutputStyle = (value) => JSON.stringify(value);
 export default jsonOutputStyle;

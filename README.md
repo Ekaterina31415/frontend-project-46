@@ -4,6 +4,12 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/6f4e2b0633944f95c758/maintainability)](https://codeclimate.com/github/Ekaterina31415/frontend-project-46/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6f4e2b0633944f95c758/test_coverage)](https://codeclimate.com/github/Ekaterina31415/frontend-project-46/test_coverage)
 
+
+Gendiff is a console utility that allows you to compare 2 .json, .yaml or .yml files and get the difference between them in different output styles.
+
+###Installation:
+> npm ci
+
 <a href="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3" target="_blank"><img src="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3.svg" /></a>
 
 Compare two plain .json files.

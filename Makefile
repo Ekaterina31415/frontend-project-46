@@ -8,4 +8,4 @@ test:
 	npx jest
 
 gendiff:
-	node ./bin/gendiff.js
+	nodejs ./bin/gendiff.js __fixtures__/file1.json __fixtures__/file2.json

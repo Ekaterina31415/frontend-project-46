@@ -1,5 +1,17 @@
 import _ from 'lodash';
+import path from 'path';
 import formatSelection from '../formatters/index.js';
+
+const gendiff = (path1, path2, format = 'stylish') => {
+  const resolveFilePath = (filePath) => (path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath));
+
+  const absolutePath1 = resolveFilePath(path1);
+  const absolutePath2 = resolveFilePath(path2);
+  const ext1 = path.extname(path1);
+  const ext2 = path.extname(path2);
+
+  // const fileContent = fs.readFileSync(resolveFilePath(file), 'utf8');
+}
 
 const buildDiff = (obj1, obj2, format = 'stylish') => {
   const keys = _.union(_.keys(obj1), _.keys(obj2));

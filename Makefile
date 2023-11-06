@@ -8,4 +8,4 @@ test:
 	npx jest
 
 gendiff:
-	bin/gendiff.js
+	node ./bin/gendiff.js

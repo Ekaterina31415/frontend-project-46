@@ -1,25 +1,18 @@
-import fs from 'fs';
-import path from 'path';
 import yaml from 'js-yaml';
 
-const parse = (file) => {
-  const fileExt = path.extname(file);
-  const resolveFilePath = (filePath) => (path.isAbsolute(filePath) ? filePath : path.resolve(process.cwd(), filePath));
-  const fileContent = fs.readFileSync(resolveFilePath(file), 'utf8');
-
-  switch (fileExt) {
+const parse = (data, ext) => {
+  switch (ext) {
     case '.json':
-      return JSON.parse(fileContent);
+      return JSON.parse(data);
 
     case '.yaml':
-      return yaml.load(fileContent);
+      return yaml.load(data);
 
     case '.yml':
-      return yaml.load(fileContent);
+      return yaml.load(data);
 
     default:
-      console.log('Only .json or .yaml(.yml) file are supported');
-      return {};
+      throw new Error(`Invalid extension: ${ext}`);
   }
 };
 

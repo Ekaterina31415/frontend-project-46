@@ -20,7 +20,7 @@ const stringify = (value, margin) => {
     ].join('\n');
   };
 
-  return iter(value, 1);
+  return iter(value, margin);
 };
 
 const stylishOutput = (value) => {

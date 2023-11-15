@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "type": "module",
   "version": "1.0.0",
-  "description": "Compare two files [![Actions Status](https://github.com/Ekaterina31415/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/Ekaterina31415/frontend-project-46/actions)",
+  "description": "Compare two files",
   "main": "bin/gendiff.js",
   "scripts": {
     "test": "jest",

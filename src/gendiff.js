@@ -1,37 +1,14 @@
-import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
+import buildDiffTree from './buildDiff.js';
 import parse from './parsers/parser.js';
 import formatSelection from './formatters/index.js';
 
-const isAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
-
-const buildDiffTree = (obj1, obj2) => {
-  const keys = _.union(_.keys(obj1), _.keys(obj2));
-  const threePart = (key) => {
-    if (!_.has(obj1, key)) {
-      return { key, value: obj2[key], status: 'added' };
-    }
-    if (!_.has(obj2, key)) {
-      return { key, value: obj1[key], status: 'removed' };
-    }
-    if (_.isObject(obj1[key]) && _.isObject(obj2[key])) {
-      return { key, children: buildDiffTree(obj1[key], obj2[key]), status: 'nested' };
-    }
-    if (obj1[key] !== obj2[key]) {
-      return {
-        key, oldValue: obj1[key], newValue: obj2[key], status: 'updated',
-      };
-    }
-    return { key, value: obj1[key], status: 'unchanged' };
-  };
-  const diff = keys.flatMap((key) => threePart(key));
-  return diff;
-};
+const makeAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
 
 const gendiff = (path1, path2, format = 'stylish') => {
-  const absolutePath1 = isAbsolutePath(path1);
-  const absolutePath2 = isAbsolutePath(path2);
+  const absolutePath1 = makeAbsolutePath(path1);
+  const absolutePath2 = makeAbsolutePath(path2);
   const ext1 = path.extname(path1);
   const ext2 = path.extname(path2);
 

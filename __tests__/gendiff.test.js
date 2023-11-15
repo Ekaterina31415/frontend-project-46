@@ -1,34 +1,50 @@
 import path from 'path';
 import fs from 'fs';
 import { test, expect } from '@jest/globals';
-import yaml from 'js-yaml';
-import compareObjects from '../src/gendiff.js';
+import gendiff from '../src/gendiff.js';
 import expectedResultNested from '../__fixtures__/nested-result.js';
 import expectedResultPlain from '../__fixtures__/plain-result.js';
+import expectedResultJson from '../__fixtures__/json-result.js';
 
-test('compare 2 .json files with stylish formatter', () => {
-  const data1 = JSON.parse(fs.readFileSync(path.resolve('__fixtures__/file1.json'), 'utf-8'));
-  const data2 = JSON.parse(fs.readFileSync(path.resolve('__fixtures__/file2.json'), 'utf-8'));
+const readFixture = (file) => {
+  const data = JSON.parse(fs.readFileSync(path.resolve(`__fixtures__/${file}`), 'utf-8'));
+  return data;
+};
 
-  const current = compareObjects(data1, data2);
+const extensions = ['json', 'yaml', 'yml'];
+
+test.each(extensions)('stylish formatter', (ext) => {
+  const fileBefore = readFixture(`file1.${ext}`);
+  const fileAfter = readFixture(`file2.${ext}`);
+
+  const current = gendiff(fileBefore, fileAfter, 'stylish');
 
   expect(current).toEqual(expectedResultNested);
 });
 
-test('compare 2 .yml or .yaml files with stylish formatter', () => {
-  const data1 = yaml.load(fs.readFileSync(path.resolve('__fixtures__/file1.yaml'), 'utf-8'));
-  const data2 = yaml.load(fs.readFileSync(path.resolve('__fixtures__/file2.yml'), 'utf-8'));
+test.each(extensions)('plain formatter', (ext) => {
+  const fileBefore = readFixture(`file1.${ext}`);
+  const fileAfter = readFixture(`file2.${ext}`);
 
-  const current = compareObjects(data1, data2, 'plain');
-
-  expect(current).toEqual(expectedResultNested);
-});
-
-test('compare 2 .json files with plain formatter', () => {
-  const data1 = yaml.load(fs.readFileSync(path.resolve('__fixtures__/file1.yaml'), 'utf-8'));
-  const data2 = yaml.load(fs.readFileSync(path.resolve('__fixtures__/file2.yml'), 'utf-8'));
-
-  const current = compareObjects(data1, data2).split('\n');
+  const current = gendiff(fileBefore, fileAfter, 'plain').split('\n');
 
   expect(current).toEqual(expectedResultPlain);
+});
+
+test.each(extensions)('json formatter', (ext) => {
+  const fileBefore = readFixture(`file1.${ext}`);
+  const fileAfter = readFixture(`file2.${ext}`);
+
+  const current = gendiff(fileBefore, fileAfter, 'json');
+
+  expect(current).toEqual(expectedResultJson);
+});
+
+test.each(extensions)('default formatter', (ext) => {
+  const fileBefore = readFixture(`file1.${ext}`);
+  const fileAfter = readFixture(`file2.${ext}`);
+
+  const current = gendiff(fileBefore, fileAfter);
+
+  expect(current).toEqual(expectedResultNested);
 });

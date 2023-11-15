@@ -3,12 +3,15 @@ import stylish from './stylish.js';
 import json from './json.js';
 
 const formatSelection = (format) => {
-  if (format === 'plain' || format === 'p') {
-    return plain;
+  switch (format) {
+    case 'plain' || 'p':
+      return plain;
+
+    case 'json':
+      return json;
+
+    default:
+      return stylish;
   }
-  if (format === 'json') {
-    return json;
-  }
-  return stylish;
 };
 export default formatSelection;

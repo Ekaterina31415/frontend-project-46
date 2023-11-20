@@ -5,8 +5,7 @@
   "description": "Compare two files",
   "main": "bin/gendiff.js",
   "scripts": {
-    "test": "jest",
-    "format": "node ./formatters/stylish.js"
+    "test": "jest"
   },
   "jest": {
     "collectCoverage": true,

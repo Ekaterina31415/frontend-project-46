@@ -19,7 +19,7 @@ const buildDiffTree = (obj1, obj2) => {
     }
     return { key, value: obj1[key], status: 'unchanged' };
   };
-  const diff = keys.flatMap((key) => treePart(key));
+  const diff = keys.map((key) => treePart(key));
   return diff;
 };
 export default buildDiffTree;

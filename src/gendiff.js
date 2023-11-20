@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import buildDiffTree from './buildDiff.js';
 import parse from './parsers/parser.js';
-import formatSelection from './formatters/index.js';
+import getOutputFormat from './formatters/index.js';
 
 const makeAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
 
@@ -20,8 +20,7 @@ const gendiff = (path1, path2, format = 'stylish') => {
 
   const diff = buildDiffTree(parsedData1, parsedData2);
 
-  const outputFormat = formatSelection(format);
-  return outputFormat(diff);
+  return getOutputFormat(diff, format);
 };
 
 export default gendiff;

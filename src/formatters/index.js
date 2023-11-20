@@ -2,16 +2,16 @@ import plain from './plain.js';
 import stylish from './stylish.js';
 import json from './json.js';
 
-const formatSelection = (format) => {
+const getOutputFormat = (data, format) => {
   switch (format) {
     case 'plain' || 'p':
-      return plain;
+      return plain(data);
 
     case 'json':
-      return json;
+      return json(data);
 
     default:
-      return stylish;
+      return stylish(data);
   }
 };
-export default formatSelection;
+export default getOutputFormat;

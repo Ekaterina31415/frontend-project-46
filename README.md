@@ -9,6 +9,8 @@ Gendiff is a console utility that allows you to compare 2 .json, .yaml or .yml f
 
 ### Installation:
 > git clone https://github.com/Ekaterina31415/frontend-project-46.git
+
+### Installing dependencies:
 > npm ci
 
 ### Usage:

@@ -4,6 +4,9 @@ import json from './json.js';
 
 const getOutputFormat = (data, format) => {
   switch (format) {
+    case 'stylish':
+      return stylish(data);
+
     case 'plain' || 'p':
       return plain(data);
 
@@ -11,7 +14,7 @@ const getOutputFormat = (data, format) => {
       return json(data);
 
     default:
-      return stylish(data);
+      throw new Error(`Invalid format: ${format}`);
   }
 };
 export default getOutputFormat;

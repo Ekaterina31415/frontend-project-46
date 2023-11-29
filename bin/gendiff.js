@@ -13,7 +13,7 @@ program
   });
 
 if (!process.argv.slice(1).length) {
-  program.outputHelp();
+  throw new Error(`${program.outputHelp()}`);
 }
 
 program.parse(process.argv);

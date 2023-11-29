@@ -1,4 +1,12 @@
-import _ from 'lodash';
+const formatValue = (value) => {
+  if (typeof value === 'object') {
+    return '[complex value]';
+  }
+  if (typeof value === 'string') {
+    return `'${value}'`;
+  }
+  return value;
+};
 
 const plainOutput = (diff) => {
   const iter = (treePart, keyPath) => {
@@ -7,16 +15,13 @@ const plainOutput = (diff) => {
       return treePart.children.flatMap((child) => iter(child, newKeyPath));
     }
     if (treePart.status === 'added') {
-      const value = _.isObject(treePart.value) ? '[complex value]' : treePart.value;
-      return `Property '${newKeyPath}' was added with value: '${value}'`;
+      return `Property '${newKeyPath}' was added with value: ${formatValue(treePart.value)}`;
     }
     if (treePart.status === 'removed') {
       return `Property '${newKeyPath}' was removed`;
     }
     if (treePart.status === 'updated') {
-      const val1 = _.isObject(treePart.oldValue) ? '[complex value]' : treePart.oldValue;
-      const val2 = _.isObject(treePart.newValue) ? '[complex value]' : treePart.newValue;
-      return `Property '${newKeyPath}' was updated. From '${val1}' to '${val2}'`;
+      return `Property '${newKeyPath}' was updated. From ${formatValue(treePart.oldValue)} to ${formatValue(treePart.newValue)}`;
     }
     return [];
   };

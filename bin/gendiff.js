@@ -7,12 +7,12 @@ program
   .version('1.0.0', '-V, --version', 'output the version number')
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format', 'stylish')
-  .arguments('<filepath1> <filepath2>')
-  .action((file1, file2, { format }) => {
+  .arguments('<filepath1> <filepath2> [format]')
+  .action((file1, file2, format) => {
     console.log(gendiff(file1, file2, format));
   });
 
-if (!process.argv.slice(2).length) {
+if (!process.argv.slice(1).length) {
   program.outputHelp();
 }
 

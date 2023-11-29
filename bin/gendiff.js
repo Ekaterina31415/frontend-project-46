@@ -12,8 +12,8 @@ program
     console.log(gendiff(file1, file2, format));
   });
 
-program.parse(process.argv);
-
 if (!process.argv.slice(2).length) {
   program.outputHelp();
 }
+
+program.parse(process.argv);

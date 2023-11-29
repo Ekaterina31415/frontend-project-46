@@ -34,11 +34,14 @@ const stylishOutput = (value) => {
     const lines = currentValue.map((node) => {
       if (node.status === 'added') {
         return `${indent}+ ${node.key}: ${stringify(node.value, indentSize)}`;
-      } else if (node.status === 'removed') {
+      }
+      if (node.status === 'removed') {
         return `${indent}- ${node.key}: ${stringify(node.value, indentSize)}`;
-      } else if (node.status === 'unchanged') {
+      }
+      if (node.status === 'unchanged') {
         return `${indent}  ${node.key}: ${stringify(node.value, indentSize)}`;
-      } else if (node.status === 'updated') {
+      }
+      if (node.status === 'updated') {
         return `${indent}- ${node.key}: ${stringify(node.oldValue, indentSize)}\n${indent}+ ${node.key}: ${stringify(node.newValue, indentSize)}`;
       }
       return `${indent}  ${node.key}: ${iter(node.children, depth + 1)}`;

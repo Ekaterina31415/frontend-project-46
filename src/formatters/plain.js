@@ -4,11 +4,11 @@ const plainOutput = (diff) => {
   const iter = (treePart, keyPath) => {
     const newKeyPath = keyPath === '' ? `${treePart.key}` : `${keyPath}.${treePart.key}`;
     if (treePart.status === 'nested') {
-      return plainOutput(treePart.children, newKeyPath);
+      return treePart.children.flatMap((child) => iter(child, newKeyPath));
     }
     if (treePart.status === 'added') {
       const value = _.isObject(treePart.value) ? '[complex value]' : treePart.value;
-      return `Property '${newKeyPath}' was added with value: ${value}"`;
+      return `Property '${newKeyPath}' was added with value: '${value}'`;
     }
     if (treePart.status === 'removed') {
       return `Property '${newKeyPath}' was removed`;
@@ -18,7 +18,7 @@ const plainOutput = (diff) => {
       const val2 = _.isObject(treePart.newValue) ? '[complex value]' : treePart.newValue;
       return `Property '${newKeyPath}' was updated. From '${val1}' to '${val2}'`;
     }
-    return '';
+    return [];
   };
 
   return diff.flatMap((node) => iter(node, '')).join('\n');

@@ -2,49 +2,24 @@ import path from 'path';
 import fs from 'fs';
 import { test, expect } from '@jest/globals';
 import gendiff from '../src/gendiff.js';
-import expectedResultNested from '../__fixtures__/nested-result.js';
-import expectedResultPlain from '../__fixtures__/plain-result.js';
-import expectedResultJson from '../__fixtures__/json-result.js';
+
+const nestedResult = fs.readFileSync('./__fixtures__/nested-result.txt', 'utf-8');
+const plainResult = fs.readFileSync('./__fixtures__/plain-result.txt', 'utf-8');
+const jsonResult = fs.readFileSync('./__fixtures__/json-result.txt', 'utf-8');
 
 const readFixture = (file) => {
-  const data = JSON.parse(fs.readFileSync(path.resolve(`__fixtures__/${file}`), 'utf-8'));
+  const data = path.resolve(process.cwd(), `__fixtures__/${file}`);
   return data;
 };
 
 const extensions = ['json', 'yaml', 'yml'];
 
-test.each(extensions)('stylish formatter', (ext) => {
+test.each(extensions)('get difference between 2 files', (ext) => {
   const fileBefore = readFixture(`file1.${ext}`);
   const fileAfter = readFixture(`file2.${ext}`);
 
-  const current = gendiff(fileBefore, fileAfter, 'stylish');
-
-  expect(current).toEqual(expectedResultNested);
-});
-
-test.each(extensions)('plain formatter', (ext) => {
-  const fileBefore = readFixture(`file1.${ext}`);
-  const fileAfter = readFixture(`file2.${ext}`);
-
-  const current = gendiff(fileBefore, fileAfter, 'plain').split('\n');
-
-  expect(current).toEqual(expectedResultPlain);
-});
-
-test.each(extensions)('json formatter', (ext) => {
-  const fileBefore = readFixture(`file1.${ext}`);
-  const fileAfter = readFixture(`file2.${ext}`);
-
-  const current = gendiff(fileBefore, fileAfter, 'json');
-
-  expect(current).toEqual(expectedResultJson);
-});
-
-test.each(extensions)('default formatter', (ext) => {
-  const fileBefore = readFixture(`file1.${ext}`);
-  const fileAfter = readFixture(`file2.${ext}`);
-
-  const current = gendiff(fileBefore, fileAfter);
-
-  expect(current).toEqual(expectedResultNested);
+  expect(gendiff(fileBefore, fileAfter, 'stylish')).toEqual(nestedResult);
+  expect(gendiff(fileBefore, fileAfter, 'plain')).toEqual(plainResult);
+  expect(gendiff(fileBefore, fileAfter, 'json')).toEqual(jsonResult);
+  expect(gendiff(fileBefore, fileAfter)).toEqual(nestedResult);
 });

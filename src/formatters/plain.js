@@ -1,4 +1,4 @@
-const formatValue = (value) => {
+const outputValue = (value) => {
   if (typeof value === 'object') {
     return '[complex value]';
   }
@@ -15,13 +15,13 @@ const plainOutput = (diff) => {
       return treePart.children.flatMap((child) => iter(child, newKeyPath));
     }
     if (treePart.status === 'added') {
-      return `Property '${newKeyPath}' was added with value: ${formatValue(treePart.value)}`;
+      return `Property '${newKeyPath}' was added with value: ${outputValue(treePart.value)}`;
     }
     if (treePart.status === 'removed') {
       return `Property '${newKeyPath}' was removed`;
     }
     if (treePart.status === 'updated') {
-      return `Property '${newKeyPath}' was updated. From ${formatValue(treePart.oldValue)} to ${formatValue(treePart.newValue)}`;
+      return `Property '${newKeyPath}' was updated. From ${outputValue(treePart.oldValue)} to ${outputValue(treePart.newValue)}`;
     }
     return [];
   };

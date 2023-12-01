@@ -6,6 +6,3 @@ lint:
 
 test:
 	npx jest
-
-gendiff:
-	nodejs ./bin/gendiff.js

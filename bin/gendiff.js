@@ -8,8 +8,8 @@ program
   .description('Compares two configuration files and shows a difference.')
   .option('-f, --format [type]', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2> [format]')
-  .action((file1, file2) => {
-    console.log(gendiff(file1, file2, program.opts().format));
+  .action((file1, file2, format = 'stylish') => {
+    console.log(gendiff(file1, file2, format));
   });
 
 program.parse(process.argv);

@@ -12,4 +12,4 @@ program
     console.log(gendiff(file1, file2, program.opts().format));
   });
 
-program.parse();
+program.parse(process.argv);

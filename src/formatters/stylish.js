@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getIndentSize = (depth) => depth * 2 + 1;
+const getIndentSize = (depth) => depth * 2;
 const getIndentString = (indentSize) => ' '.repeat(indentSize);
 
 const stringify = (value, margin) => {

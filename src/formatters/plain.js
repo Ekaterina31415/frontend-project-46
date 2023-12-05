@@ -28,7 +28,7 @@ const plainOutput = (diff) => {
     return [];
   };
 
-  return diff.flatMap((node) => iter(node, '')).sort().join('\n');
+  return _.sortBy(diff.flatMap((node) => iter(node, ''))).join('\n');
 };
 
 export default plainOutput;

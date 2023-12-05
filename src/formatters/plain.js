@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 const outputValue = (value) => {
-  if (typeof value === 'object') {
+  if (_.isPlainObject(value)) {
     return '[complex value]';
   }
   if (typeof value === 'string') {

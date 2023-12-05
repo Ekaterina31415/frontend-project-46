@@ -7,7 +7,8 @@ const getOutputFormat = (data, format) => {
     case 'stylish':
       return stylish(data);
 
-    case 'plain' || 'p':
+    case 'plain':
+    case 'p':
       return plain(data);
 
     case 'json':

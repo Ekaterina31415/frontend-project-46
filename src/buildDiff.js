@@ -1,7 +1,8 @@
 import _ from 'lodash';
 
 const buildDiffTree = (obj1, obj2) => {
-  const keys = _.union(_.keys(obj1), _.keys(obj2)).sort();
+  const keys = _.union(_.keys(obj1), _.keys(obj2));
+  const sortedKeys = _.sortBy(keys);
   const treePart = (key) => {
     if (!_.has(obj1, key)) {
       return { key, value: obj2[key], status: 'added' };
@@ -19,7 +20,7 @@ const buildDiffTree = (obj1, obj2) => {
     }
     return { key, value: obj1[key], status: 'unchanged' };
   };
-  const diff = keys.map((key) => treePart(key));
+  const diff = sortedKeys.map((key) => treePart(key));
   return diff;
 };
 export default buildDiffTree;

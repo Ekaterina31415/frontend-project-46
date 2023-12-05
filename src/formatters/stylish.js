@@ -9,8 +9,6 @@ const signs = {
   unchanged: '  ',
 };
 
-// https://ru.hexlet.io/challenges/js_trees_stringify_exercise
-
 const stringify = (value, depth) => {
   if (!_.isPlainObject(value)) {
     return `${value}`;
@@ -29,7 +27,7 @@ const getDiffTree = (nodes) => {
       case 'nested':
         return `\n${getIndent(depth)}  ${node.key}: {${node.children.map((child) => iter(child, depth + 1)).join('')}\n${getIndent(depth)}  }`;
       case 'updated':
-        return `\n${getIndent(depth)}- ${node.key}: ${stringify(node.removedValue, depth + 1)}\n${getIndent(depth)}+ ${node.key}: ${stringify(node.addedValue, depth + 1)}`;
+        return `\n${getIndent(depth)}- ${node.key}: ${stringify(node.oldValue, depth + 1)}\n${getIndent(depth)}+ ${node.key}: ${stringify(node.newValue, depth + 1)}`;
       case 'unchanged':
       case 'added':
       case 'removed':

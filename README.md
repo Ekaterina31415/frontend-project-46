@@ -9,20 +9,21 @@ Gendiff is a console utility that allows you to compare 2 .json, .yaml or .yml f
 
 ### Installation:
 > git clone https://github.com/Ekaterina31415/frontend-project-46.git
-
-### Installing dependencies:
 > npm ci
+> make install
+> make link
 
 ### Usage:
-> make gendiff
+gendiff (filePath1) (filePath2) [-f format]
 
-<a href="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3" target="_blank"><img src="https://asciinema.org/a/mtSvYJAjijS1jH4p4WbISb7z3.svg" /></a>
+<a href="https://asciinema.org/a/Ryvw0S5ChJWan9BFEoz4GkKVv" target="_blank"><img src="https://asciinema.org/a/Ryvw0S5ChJWan9BFEoz4GkKVv.svg" /></a>
 
-Compare two plain .json files.
+Compare two nested json files with stylish formatter.
 
-<a href="https://asciinema.org/a/Y0ejnGARLVkCMpvifW6qhgXMd" target="_blank"><img src="https://asciinema.org/a/Y0ejnGARLVkCMpvifW6qhgXMd.svg" /></a>
+<a href="https://asciinema.org/a/Gah0AHXvoRhyRnN6FsWu6eXra" target="_blank"><img src="https://asciinema.org/a/Gah0AHXvoRhyRnN6FsWu6eXra.svg" /></a>
 
-Compare two plain .yaml and .yml files.
+Compare two nested .yaml files with plain formatter.
 
-<a href="https://asciinema.org/a/6oa1lL7XeiUjXjbO8hcfnonDW" target="_blank"><img src="https://asciinema.org/a/6oa1lL7XeiUjXjbO8hcfnonDW.svg" /></a>
-Compare two nested .json files.
+<a href="https://asciinema.org/a/09NuSflSI9Wkh1TLUAm9Tfd21" target="_blank"><img src="https://asciinema.org/a/09NuSflSI9Wkh1TLUAm9Tfd21.svg" /></a>
+
+Compare two nested .yml files with json formatter.
